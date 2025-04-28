@@ -1,6 +1,6 @@
 pandas == 2.1.1
 numpy == 1.26.4
-flwr
+flwr == 1.16.0
 torch == 2.1.0+cpu
 torchvision == 0.16.0+cpu
 optuna
