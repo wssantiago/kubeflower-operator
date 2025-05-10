@@ -261,7 +261,7 @@ def create_fldeployment(spec, **kwargs):
                                 "volumeMounts": [
                                     {
                                         "name": f"diffpriv-job-pv-{i}",  # Volume name
-                                        "mountPath": "/app/data/",  # Mount path in the container
+                                        "mountPath": "/app/data",  # Mount path in the container
                                     }
                                     ]
                                 }
@@ -281,6 +281,7 @@ def create_fldeployment(spec, **kwargs):
                 }
             #Create PV and PVC for the job
             try:
+                logging.info(f"client_dataset_path: {client_dataset_path}")
                 create_pvcs(f"diffpriv-job-pv-{i}", f"diffpriv-job-pvc-{i}", client_dataset_path, client_namespace)
             except Exception as e:
                 logging.error(f"Error creating diffpriv-job-pv and pvc-{i}. Reason: {e}")
@@ -338,6 +339,7 @@ def create_fldeployment(spec, **kwargs):
                             "app": f"{kwargs['body']['metadata']['name']}-client-{i}"
                         },
                         "annotations": {
+                            "k8s.v1.cni.cncf.io/networks": f"default/{client_network}",
                             "ovn.kubernetes.io/logical_switch": client_network                      
                         }           
                     },

@@ -7,13 +7,14 @@ spec:
   server:
     imagePullPolicy: IfNotPresent
     port: 8080
-    rounds: 10
+    rounds: 2
   client:
-    num_clients: 10
+    num_clients: 3
     imagePullPolicy: IfNotPresent
     isolation: True
     port: 30051
     dataset:
+      path: /mnt/data
       download: False
     privacy:
       budget: 0.2
